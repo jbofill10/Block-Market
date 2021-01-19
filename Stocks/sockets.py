@@ -7,13 +7,21 @@ def on_connect():
 
 @socketio.on('yo')
 def fetch():
+    quotes = {}
     stock_quotes = {}
+    crypto_quotes = {}
     for stock in stocks:
         data = fhub.quote(stock)['c']
 
         stock = 'BTC' if stock == 'BINANCE:BTCUSDT' else stock
+        stock = 'ETH' if stock == 'BINANCE:ETHUSDT' else stock
+        
+        if 'BTC' in stock or 'ETH' in stock:
+            crypto_quotes[stock] = data
+        else:
+            stock_quotes[stock] = data
 
-        stock_quotes[stock] = data
-    print("Got your message, bro")
-    print(stock_quotes)
-    socketio.emit('fetch', stock_quotes)
+    quotes['stocks'] = stock_quotes
+    quotes['crypto'] = crypto_quotes
+
+    socketio.emit('fetch', quotes)
