@@ -1,0 +1,13 @@
+name: Block-Market
+version: 1.0
+main: me.redstery11.blockmarket.BlockMarket
+commands:
+  openmarket:
+    description: Opens the market for trades
+    usage: /openmarket
+  closemarket:
+    description: Closes the market for trades
+    usage: /closemarket
+  market:
+    description: Open market terminal
+    usage: /market
